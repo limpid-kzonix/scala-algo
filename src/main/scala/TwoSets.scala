@@ -25,7 +25,7 @@ object Result {
     val lmcRes: Int = leftArray.reduce((a, b) => safetyCheck(lmc(a, b)))
     val gdcRes: Int = rightArray.reduce((a, b) => gdc(a, b))
     if (lmcRes == 0) return 0
-    (lmcRes to gdcRes).fold(0)((a, e) => if (gdcRes % e == 0 && e % lmcRes == 0) a + 1 else a)
+    (lmcRes to gdcRes).fold(0)((a, e) => if (gdcRes % e == 0 && e % lmcRes == 0) {println(e); a + 1} else a)
   }
 }
 
