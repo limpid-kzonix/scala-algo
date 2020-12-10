@@ -1,30 +1,37 @@
+
 object BST extends App {
 
-  case class Node(value: Int, left: Option[Node], right: Option[Node]) {
+  case class Node(value: Int, left: Option[Node], right: Option[Node])
 
-    def isBST: Boolean = {
-      this.isBST(Option(this), Int.MinValue, Int.MaxValue)
-    }
+  object Node {
+    def apply(id: Int): Node = Node(id, None, None)
 
     def isBST(node: Option[Node], min: Int, max: Int): Boolean = {
       node match {
         case Some(node) =>
+          println(s" Node = ${node.value}  [min=$min, max=$max]")
           if (node.value < min || node.value > max) return false
-          isBST(node.left, min, node.value-1) && isBST(node.right, node.value-1, max)
+          isBST(node.left, min, node.value) && isBST(node.right, node.value, max)
         case None => true
       }
     }
+
+    implicit class NodeExtension(val node: Node) {
+      def isBST: Boolean = Node.isBST(Option(node), Int.MinValue, Int.MaxValue)
+    }
+
   }
 
-  object Node {
-    def apply(id: Int): Node = Node(id, None, None)
-    def apply(id: Int, left: Node, right: Node): Node =  Node(id, Some(left), Some(right))
+  object NodeConversions {
+
+    import scala.language.implicitConversions
+
+    implicit def anyToOption[A](a: A): Option[A] = Option.apply(a)
   }
 
-  println(Node(4,
-    Node(2, Node(1), Node(3)), Node(5)
+  import BST.NodeConversions._
 
-  ).isBST)
+  println(Node(10, Node(2, None, Node(9)), None).isBST)
 
 
 }
