@@ -22,6 +22,8 @@ object BST extends App {
 
   }
 
+
+
   object NodeConversions {
 
     import scala.language.implicitConversions
