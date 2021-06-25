@@ -36,7 +36,7 @@ object InOrderSuccessorBST extends App {
 
 
     implicit class NodeExtension(val node: Node) {
-      def isBST: Boolean = Node.find(Option(node))
+      def isBST: Boolean = Node.find(Option(node)).isDefined
     }
 
   }
